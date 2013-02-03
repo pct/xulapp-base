@@ -1,18 +1,11 @@
-# ** Cakefile Template ** is a Template for a common Cakefile that you may use in a coffeescript nodejs project.
-# 
-# It comes baked in with 5 tasks:
-#
-# * build - compiles your src directory to your lib directory
-# * watch - watches any changes in your src directory and automatically compiles to the lib directory
-# * test  - runs mocha test framework, you can edit this task to use your favorite test framework
-# * docs  - generates annotated documentation using docco
-# * clean - clean generated .js files
 files = [
   'lib'
   'src'
 ]
 
 fs = require 'fs'
+sys = require 'sys'
+exec = require('child_process').exec
 {print} = require 'util'
 {spawn, exec} = require 'child_process'
 
@@ -30,64 +23,23 @@ reset = '\x1b[0m'
 red = '\x1b[0;31m'
 
 # Cakefile Tasks
-#
-# ## *docs*
-#
-# Generate Annotated Documentation
-#
-# <small>Usage</small>
-#
-# ```
-# cake docs
-# ```
+task 'init', 'project init', -> init -> log "still don't work now ;)", red
 task 'docs', 'generate documentation', -> docco()
-
-# ## *build*
-#
-# Builds Source
-#
-# <small>Usage</small>
-#
-# ```
-# cake build
-# ```
 task 'build', 'compile source', -> build -> log ":)", green
-
-# ## *watch*
-#
-# Builds your source whenever it changes
-#
-# <small>Usage</small>
-#
-# ```
-# cake watch
-# ```
 task 'watch', 'compile and watch', -> build true, -> log ":-)", green
-
-# ## *test*
-#
-# Runs your test suite.
-#
-# <small>Usage</small>
-#
-# ```
-# cake test
-# ```
 task 'test', 'run tests', -> build -> mocha -> log ":)", green
-
-# ## *clean*
-#
-# Cleans up generated js files
-#
-# <small>Usage</small>
-#
-# ```
-# cake clean
-# ```
 task 'clean', 'clean generated files', -> clean -> log ";)", green
 
 
 # Internal Functions
+
+init = (callback) ->
+  sys.puts 'fetch xulrunner...'
+  exec 'sh ./fetch_xulrunner.sh', (error, stdout, stderr) =>
+    sys.puts stdout
+    sys.puts 'extract xulrunner done!'
+    callback?()
+
 #
 # ## *walk* 
 #
