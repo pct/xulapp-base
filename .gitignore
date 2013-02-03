@@ -1,0 +1,6 @@
+xulrunner
+staging
+dist
+.idea
+*~
+*.swp
