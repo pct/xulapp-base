@@ -16,6 +16,7 @@ Clone from Rack Lin's xulapp-starterkit:
 1. Node.js
 2. npm
 3. CoffeeScript
+4. curl
 
 ## Howto
 `$ cd xulapp-base`

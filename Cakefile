@@ -1,13 +1,15 @@
+fs = require 'fs'
+exec = require('child_process').exec
+{print} = require 'util'
+{spawn, exec} = require 'child_process'
+
+config = JSON.parse(fs.readFileSync(__dirname + '/config.json', 'utf-8'))
+xul_extensions_path = 'xulrunner/XUL.framework/Versions/Current/extensions'
+
 files = [
   'lib'
   'src'
 ]
-
-fs = require 'fs'
-sys = require 'sys'
-exec = require('child_process').exec
-{print} = require 'util'
-{spawn, exec} = require 'child_process'
 
 try
   which = require('which').sync
@@ -23,7 +25,7 @@ reset = '\x1b[0m'
 red = '\x1b[0;31m'
 
 # Cakefile Tasks
-task 'init', 'project init', -> init -> log "still don't work now ;)", red
+task 'init', 'project init', -> init() #-> log "done :)", green
 task 'docs', 'generate documentation', -> docco()
 task 'build', 'compile source', -> build -> log ":)", green
 task 'watch', 'compile and watch', -> build true, -> log ":-)", green
@@ -34,11 +36,19 @@ task 'clean', 'clean generated files', -> clean -> log ";)", green
 # Internal Functions
 
 init = (callback) ->
-  sys.puts 'fetch xulrunner...'
+  console.log 'fetch xulrunner...'
   exec 'sh ./fetch_xulrunner.sh', (error, stdout, stderr) =>
-    sys.puts stdout
-    sys.puts 'extract xulrunner done!'
-    callback?()
+    console.log 'extract xulrunner done!'
+
+    # fetch extensions
+    console.log "fetch and extract extensions..."
+    exec "mkdir -p #{xul_extensions_path}", (error, stdout, stderr) =>
+
+      for xpi_name, xpi_url of config.extension_urls
+        fetch_extract_cmd = "cd #{xul_extensions_path}; curl -L #{xpi_url} -o #{xpi_name}.xpi; mkdir -p #{xpi_name}; tar xvf #{xpi_name}.xpi -C #{xpi_name}; rm -f #{xpi_name}.xpi"
+        exec fetch_extract_cmd, (error, stdout, stderr) =>
+
+    #callback?()
 
 #
 # ## *walk* 

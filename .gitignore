@@ -1,4 +1,5 @@
 xulrunner
+node_modules
 staging
 dist
 .idea

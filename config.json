@@ -1,0 +1,8 @@
+{
+  "extension_urls": {
+    "nodejs": "https://s3.amazonaws.com/xulapp/addons/xulapp-starterkit-addon-nodejs-0.8.17.xpi",
+    "dominspector": "https://github.com/racklin/xulapp-starterkit-addon-dominspector/raw/master/downloads/xulapp-starterkit-addon-dominspector-2.0.12.xpi",
+    "webapp-wrapper": "https://github.com/racklin/xulapp-starterkit-app-webapp-wrapper/raw/master/downloads/xulapp-starterkit-webapp-wrapper-1.1.1.xpi",
+    "sqlitemanager": "https://github.com/racklin/xulapp-starterkit-addon-sqlitemanager/raw/master/downloads/xulapp-starterkit-addon-sqlitemanager-0.7.7.xpi"
+  }
+}
